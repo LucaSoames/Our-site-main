@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 
 const meta = {
@@ -10,6 +10,17 @@ const meta = {
 };
 
 export default function Index() {
+
+  const servicesRef = useRef(null);
+  const contactUsRef = useRef(null);
+
+  const scrollToSection = (sectionRef) => {
+    // Check if the ref and the current property exist
+    if (sectionRef && sectionRef.current) {
+      sectionRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <React.Fragment>
       <HelmetProvider>
@@ -43,13 +54,13 @@ export default function Index() {
                   <a className='inline-block hover:underline mr-10' href='#/about'>
                     About
                   </a>
-                  <a className='inline-block hover:underline mr-10' href='#/services'>
+                  <a  onClick={() => scrollToSection(servicesRef)} className='inline-block hover:underline mr-10' href='#/services'>
                     Services
                   </a>
                   <a className='inline-block hover:underline mr-10' href='#/projects'>
                     Projects
                   </a>
-                  <a className='inline-block hover:underline' href='#/contact-us'>
+                  <a onClick={() => scrollToSection(contactUsRef)} className='inline-block hover:underline' href='#/contact-us'>
                     Contact us
                   </a>
                 </div>
@@ -1289,7 +1300,7 @@ export default function Index() {
         </section>
         <section className='py-12 md:py-24 bg-coolGray-50'>
           <div className='container mx-auto px-4'>
-            <div className='max-w-md mx-auto lg:max-w-none'>
+            <div  ref={servicesRef}  className='max-w-md mx-auto lg:max-w-none'>
               <h1 className='font-heading text-6xl md:text-10xl tracking-tighter mb-20'>
                 Services
               </h1>
@@ -1494,7 +1505,7 @@ export default function Index() {
                   alt=''
                 />
               </div>
-              <div className='w-full lg:w-1/2 px-4'>
+              <div ref={contactUsRef} className='w-full lg:w-1/2 px-4'>
                 <div className='max-w-lg mx-auto lg:mr-0 pt-14 pb-16 lg:py-24'>
                   <h1 className='font-heading text-6xl xs:text-8xl sm:text-9xl xl:text-10xl tracking-tighter text-white mb-8'>
                     Let&amp;grave;s talk
